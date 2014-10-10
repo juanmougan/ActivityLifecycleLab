@@ -27,30 +27,36 @@ public class ActivityOne extends Activity {
 	// mCreate, mRestart, mStart and mResume
 	// to count calls to onCreate(), onRestart(), onStart() and
 	// onResume(). These variables should not be defined as static.
-	private int mCreate = 0, mRestart = 0, mStart = 0, mResume = 0; 
+	private int mCreate = 0, mRestart = 0, mStart = 0, mResume = 0;
 
 	// You will need to increment these variables' values when their
 	// corresponding lifecycle methods get called.
 
-	// TODO: Create variables for each of the TextViews
 	// named mTvCreate, mTvRestart, mTvStart, mTvResume.
 	// for displaying the current count of each counter variable
+	private TextView mTvCreate;
+	private TextView mTvStart;
+	private TextView mTvResume;
+	private TextView mTvRestart;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_one);
 
-		// TODO: Assign the appropriate TextViews to the TextView variables
+		// Assign the appropriate TextViews to the TextView variables
 		// Hint: Access the TextView by calling Activity's findViewById()
 		// textView1 = (TextView) findViewById(R.id.textView1);
+		mTvCreate = (TextView) findViewById(R.id.create);
+		mTvStart = (TextView) findViewById(R.id.start);
+		mTvRestart = (TextView) findViewById(R.id.restart);
+		mTvResume = (TextView) findViewById(R.id.resume);
 
 		Button launchActivityTwoButton = (Button) findViewById(R.id.bLaunchActivityTwo);
 		launchActivityTwoButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO:
 				// Launch Activity Two
 				// Hint: use Context's startActivity() method
 
@@ -67,19 +73,26 @@ public class ActivityOne extends Activity {
 		// Has previous state been saved?
 		if (savedInstanceState != null) {
 
-			// TODO:
 			// Restore value of counters from saved state
 			// Only need 4 lines of code, one for every count variable
-
+			restoreAllCountersFromBundle(savedInstanceState);
 		}
 
 		// Emit LogCat message
 		Log.i(TAG, "Entered the onCreate() method");
 
-		// TODO:
 		// Update the appropriate count variable
+		mCreate++;
+		mTvCreate.setText(String.valueOf(mCreate));
 		// Update the user interface via the displayCounts() method
+		this.displayCounts();
+	}
 
+	private void restoreAllCountersFromBundle(Bundle savedInstanceState) {
+		mCreate = (Integer) savedInstanceState.get(CREATE_KEY);
+		mRestart = (Integer) savedInstanceState.get(RESTART_KEY);
+		mResume = (Integer) savedInstanceState.get(RESUME_KEY);
+		mStart = (Integer) savedInstanceState.get(START_KEY);
 	}
 
 	// Lifecycle callback overrides
@@ -91,9 +104,10 @@ public class ActivityOne extends Activity {
 		// Emit LogCat message
 		Log.i(TAG, "Entered the onStart() method");
 
-		// TODO:
 		// Update the appropriate count variable
+		mStart++;
 		// Update the user interface
+		mTvStart.setText(String.valueOf(mStart));
 
 	}
 
@@ -104,9 +118,10 @@ public class ActivityOne extends Activity {
 		// Emit LogCat message
 		Log.i(TAG, "Entered the onResume() method");
 
-		// TODO:
 		// Update the appropriate count variable
+		mResume++;
 		// Update the user interface
+		mTvResume.setText(String.valueOf(mResume));
 
 	}
 
@@ -133,9 +148,10 @@ public class ActivityOne extends Activity {
 		// Emit LogCat message
 		Log.i(TAG, "Entered the onRestart() method");
 
-		// TODO:
 		// Update the appropriate count variable
+		mRestart++;
 		// Update the user interface
+		mTvRestart.setText(String.valueOf(mRestart));
 
 	}
 
@@ -148,11 +164,17 @@ public class ActivityOne extends Activity {
 	}
 
 	@Override
-	public void onSaveInstanceState(Bundle savedInstanceState) {
-		// TODO:
+	public void onSaveInstanceState(Bundle savedInstankeyceState) {
 		// Save state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variable
+		saveAllCountersIntoBundle(savedInstankeyceState);
+	}
 
+	private void saveAllCountersIntoBundle(Bundle savedInstankeyceState) {
+		savedInstankeyceState.putInt(CREATE_KEY, mCreate);
+		savedInstankeyceState.putInt(RESTART_KEY, mRestart);
+		savedInstankeyceState.putInt(RESUME_KEY, mResume);
+		savedInstankeyceState.putInt(START_KEY, mStart);
 	}
 
 	// Updates the displayed counters
