@@ -78,7 +78,7 @@ public class ActivityTwo extends Activity {
 
 		// Update the appropriate count variable
 		mCreate++;
-		mTvCreate.setText(String.valueOf(mCreate));
+		mTvCreate.setText("onCreate() calls: " + mCreate);
 		// Update the user interface via the displayCounts() method
 		this.displayCounts();
 
@@ -103,7 +103,7 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		mStart++;
 		// Update the user interface
-		mTvStart.setText(String.valueOf(mStart));
+		mTvStart.setText("onStart() calls: " + mStart);
 
 	}
 
@@ -117,7 +117,7 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		mResume++;
 		// Update the user interface
-		mTvResume.setText(String.valueOf(mResume));
+		mTvResume.setText("onResume() calls: " + mResume);
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		mRestart++;
 		// Update the user interface
-		mTvRestart.setText(String.valueOf(mRestart));
+		mTvRestart.setText("onRestart() calls: " + mRestart);
 
 	}
 
